@@ -1,0 +1,7 @@
+{
+    "id": "number",
+    "manufacturer": "string",
+    "model": "string",
+    "power": "number"
+    // jeszcze jakieś zagnieżdzenie?
+}
