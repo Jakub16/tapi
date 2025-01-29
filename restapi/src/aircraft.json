@@ -1,0 +1,21 @@
+{
+    "id": "number",
+    "name": "string",
+    "iataTypeCode": "string",
+    "type": "string",
+    "maxSpeed": "number",
+    "length": "number",
+    "width": "number",
+    "unit": "string",
+    "engines": {
+        "quantity": "number",
+        "power": "number",
+        "powerUnit": "string",
+        "manufacturer": {
+            "name": "string",
+            "address": {
+                "...": "..."
+            }
+        }
+    }
+}
