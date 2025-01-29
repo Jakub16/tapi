@@ -42,7 +42,7 @@ for (var i=1; i<=500; i++) {
     ticket.id = i;
     ticket.name = faker.person.firstName();
     ticket.surname = faker.person.lastName();
-    ticket.aiirportIataCode = airport.iataCode;
+    ticket.airportIataCode = airport.iataCode;
     ticket.flightNumber = faker.airline.flightNumber();
     ticket.seatNumber = faker.airline.seat();
     ticketsToSave.push(ticket);

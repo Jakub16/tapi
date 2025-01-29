@@ -1,21 +1,28 @@
 import express from 'express';
-import { faker } from '@faker-js/faker';
 import Airplanes from './routes/airplanes';
 import Airports from './routes/airports';
+import Tickets from './routes/tickets';
 
 const app = express();
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    const airplane = faker.airline.airplane();
-    res.send(airplane);
-});
+// dodawanie nagłówków
+app.use((req, res, next) => {
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Cache-Control", "no-cache");
+    res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    next();
+  });
 
+// rejestracja routów
 const airplanes = new Airplanes();
 const airports = new Airports();
+const tickets = new Tickets();
 app.use('/airplanes', airplanes.getRouter());
 app.use('/airports', airports.getRouter());
+app.use('/tickets', tickets.getRouter());
 
-app.listen(8080, () => {
-    console.log("Started at 8080");
+
+app.listen(3000, () => {
+    console.log("Started at 3000");
 })

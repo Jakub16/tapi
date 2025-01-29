@@ -15,7 +15,7 @@ class Airports {
         this.router.delete("/:airportId", this.deleteAirport);
     }
 
-    // Pobieranie listy wszystkich samolotów
+    // Pobieranie listy wszystkich lotnisk
     private getAirports = (req: Request, res: Response) => {
         res.status(200).json({
             airports: airports,
@@ -23,7 +23,7 @@ class Airports {
         });
     };
 
-    // Tworzenie nowego samolotu
+    // Tworzenie nowego lotniska
     private createAirport = (req: Request, res: Response) => {
         const airport: Airport = req.body;
 
