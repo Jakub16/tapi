@@ -8,10 +8,102 @@ class Tickets {
     constructor() {
         this.router = express.Router();
 
+     /**
+     * @swagger
+     * /tickets:
+     *   get:
+     *     summary: Pobiera listę wszystkich biletów
+     *     tags: [Tickets]
+     *     responses:
+     *       200:
+     *         description: Lista biletów
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 $ref: '#/components/schemas/Ticket'
+     */
         this.router.get("/", this.getTickets);
+     /**
+     * @swagger
+     * /tickets:
+     *   post:
+     *     summary: Tworzenie nowego biletu
+     *     tags: [Tickets]
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/schemas/Ticket'
+     *     responses:
+     *       201:
+     *         description: Bilet utworzony pomyślnie
+     *       400:
+     *         description: Bad Request
+     *       
+     */
         this.router.post("/", this.createTicket);
+     /**
+     * @swagger
+     * /tickets/{ticketId}:
+     *   get:
+     *     summary: Zwraca bilet o podanym id
+     *     tags: [Tickets]
+     *     parameters:
+     *       - in: path
+     *         name: ticketId
+     *         required: true
+     *         schema:
+     *           type: integer
+     *         description: id biletu
+     *     responses:
+     *       200:
+     *         description: Bilet
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Ticket'
+     */
         this.router.get("/:ticketId", this.getTicket);
+     /**
+     * @swagger
+     * /tickets/{ticketId}:
+     *   put:
+     *     summary: Aktualizuje bilet o podanym id
+     *     tags: [Tickets]
+     *     parameters:
+     *       - in: path
+     *         name: ticketId
+     *         required: true
+     *         schema:
+     *           type: integer
+     *         description: id biletu
+     *     responses:
+     *       200:
+     *         description: Ticket updated successfully
+     */
         this.router.put("/:ticketId", this.putTicket);
+     /**
+     * @swagger
+     * /tickets/{ticketId}:
+     *   delete:
+     *     summary: Usuwa bilet o podanym id
+     *     tags: [Tickets]
+     *     parameters:
+     *       - in: path
+     *         name: ticketid
+     *         required: true
+     *         schema:
+     *           type: integer
+     *         description: id biletu
+     *     responses:
+     *       204:
+     *         description: No Content
+     *       404:
+     *         description: Ticket with id ${id} not found
+     */
         this.router.delete("/:ticketId", this.deleteTicket);
     }
 

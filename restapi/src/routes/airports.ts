@@ -8,10 +8,102 @@ class Airports {
     constructor() {
         this.router = express.Router();
 
+     /**
+     * @swagger
+     * /airports:
+     *   get:
+     *     summary: Pobiera listę wszystkich lotnisk
+     *     tags: [Airports]
+     *     responses:
+     *       200:
+     *         description: Lista lotnisk
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 $ref: '#/components/schemas/Airport'
+     */
         this.router.get("/", this.getAirports);
+     /**
+     * @swagger
+     * /airports:
+     *   post:
+     *     summary: Tworzenie nowego lotniska
+     *     tags: [Airports]
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/schemas/Airport'
+     *     responses:
+     *       201:
+     *         description: Lotnisko utworzone pomyślnie
+     *       400:
+     *         description: Bad Request
+     *       
+     */
         this.router.post("/", this.createAirport);
+        /**
+     * @swagger
+     * /airports/{airportId}:
+     *   get:
+     *     summary: Zwraca lotnisko o podanym id
+     *     tags: [Airports]
+     *     parameters:
+     *       - in: path
+     *         name: airportId
+     *         required: true
+     *         schema:
+     *           type: integer
+     *         description: id lotniska
+     *     responses:
+     *       200:
+     *         description: Samolot
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Airport'
+     */
         this.router.get("/:airportId", this.getAirport);
+        /**
+     * @swagger
+     * /airports/{airportId}:
+     *   put:
+     *     summary: Aktualizuje lotnisko o podanym id
+     *     tags: [Airports]
+     *     parameters:
+     *       - in: path
+     *         name: airportId
+     *         required: true
+     *         schema:
+     *           type: integer
+     *         description: id lotniska
+     *     responses:
+     *       200:
+     *         description: Airport updated successfully
+     */
         this.router.put("/:airportId", this.putAirport);
+    /**
+     * @swagger
+     * /airports/{airportId}:
+     *   delete:
+     *     summary: Usuwa lotnisko o podanym id
+     *     tags: [Airports]
+     *     parameters:
+     *       - in: path
+     *         name: airportId
+     *         required: true
+     *         schema:
+     *           type: integer
+     *         description: id lotniska
+     *     responses:
+     *       204:
+     *         description: No Content
+     *       404:
+     *         description: Airport with id ${id} not found
+     */
         this.router.delete("/:airportId", this.deleteAirport);
     }
 

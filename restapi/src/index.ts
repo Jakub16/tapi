@@ -5,11 +5,15 @@ import Airplanes from './routes/airplanes';
 import Airports from './routes/airports';
 import Tickets from './routes/tickets';
 import cors from 'cors';
+import swaggerSpecs from "./swagger";
 
 const app = express();
 app.use(express.json());
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+
 const allowedOrigins = ['http://localhost:4200', 'http://localhost:3000'];
+
 
 // konfiguracja cors
 app.use(cors({
@@ -31,26 +35,6 @@ app.use((req, res, next) => {
     res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     next();
   });
-
-  const options = {
-definition: {
-    openapi: "3.1.0",
-    info: {
-    title: "Airplanes Api",
-    version: "0.1.0",
-    description:
-        "Airplanes Api"
-    }
-},
-apis: ["./routes/*.ts"],
-};
-  
-const specs = swaggerJsdoc(options);
-  app.use(
-"/api-docs",
-swaggerUi.serve,
-swaggerUi.setup(specs)
-);
 
 // rejestracja routów
 const airplanes = new Airplanes();

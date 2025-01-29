@@ -8,10 +8,104 @@ class Airplanes {
     constructor() {
         this.router = express.Router();
 
+    /**
+     * @swagger
+     * /airplanes:
+     *   get:
+     *     summary: Pobiera listę wszystkich samolotów
+     *     tags: [Airplanes]
+     *     responses:
+     *       200:
+     *         description: Lista samolotów
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 $ref: '#/components/schemas/Airplane'
+     */
         this.router.get("/", this.getAirplanes);
+    /**
+     * @swagger
+     * /airplanes:
+     *   post:
+     *     summary: Tworzenie nowego samolotu
+     *     tags: [Airplanes]
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/schemas/Airplane'
+     *     responses:
+     *       201:
+     *         description: Samolot utworzony pomyślnie
+     *       400:
+     *         description: Bad Request
+     *       
+     */
         this.router.post("/", this.createAirplane);
+        /**
+     * @swagger
+     * /airplanes/{airplaneId}:
+     *   get:
+     *     summary: Zwraca samolot o podanym id
+     *     tags: [Airplanes]
+     *     parameters:
+     *       - in: path
+     *         name: airplaneId
+     *         required: true
+     *         schema:
+     *           type: integer
+     *         description: id samolotu
+     *     responses:
+     *       200:
+     *         description: Samolot
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Airplane'
+     */
         this.router.get("/:airplaneId", this.getAirplane);
+     /**
+     * @swagger
+     * /airplanes/{airplaneId}:
+     *   put:
+     *     summary: Aktualizuje samolot o podanym id
+     *     tags: [Airplanes]
+     *     parameters:
+     *       - in: path
+     *         name: airplaneId
+     *         required: true
+     *         schema:
+     *           type: integer
+     *         description: id samolotu
+     *     responses:
+     *       200:
+     *         description: Airport updated successfully
+     *       404:
+     *         description: Airplane with id ${id} not found
+     */
         this.router.put("/:airplaneId", this.putAirplane);
+/**
+     * @swagger
+     * /airplanes/{airplaneId}:
+     *   delete:
+     *     summary: Usuwa samolot o podanym id
+     *     tags: [Airplanes]
+     *     parameters:
+     *       - in: path
+     *         name: airplaneId
+     *         required: true
+     *         schema:
+     *           type: integer
+     *         description: id samolotu
+     *     responses:
+     *       204:
+     *         description: No Content
+     *       404:
+     *         description: Airplane with id ${id} not found
+     */
         this.router.delete("/:airplaneId", this.deleteAirplane);
     }
 
