@@ -4,9 +4,25 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import Airplanes from './routes/airplanes';
 import Airports from './routes/airports';
 import Tickets from './routes/tickets';
+import cors from 'cors';
 
 const app = express();
 app.use(express.json());
+
+const allowedOrigins = ['http://localhost:4200', 'http://localhost:3000'];
+
+// konfiguracja cors
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // dodawanie nagłówków
 app.use((req, res, next) => {
@@ -20,25 +36,11 @@ app.use((req, res, next) => {
 definition: {
     openapi: "3.1.0",
     info: {
-    title: "LogRocket Express API with Swagger",
+    title: "Airplanes Api",
     version: "0.1.0",
     description:
-        "This is a simple CRUD API application made with Express and documented with Swagger",
-    license: {
-        name: "MIT",
-        url: "https://spdx.org/licenses/MIT.html",
-    },
-    contact: {
-        name: "LogRocket",
-        url: "https://logrocket.com",
-        email: "info@email.com",
-    },
-    },
-    servers: [
-    {
-        url: "http://localhost:3000",
-    },
-    ],
+        "Airplanes Api"
+    }
 },
 apis: ["./routes/*.ts"],
 };
